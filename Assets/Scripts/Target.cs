@@ -30,10 +30,11 @@ public class Target : MonoBehaviour
         //    GameManager.Instance.SpawnFoodItem();
         //}
 
-        if (collision.gameObject.CompareTag("Food"))
+        if (collision.gameObject.CompareTag("Food") && GameManager.Instance.checkGame() == true)
         {
             ChangeTargetPosition();
             GameManager.Instance.SpawnFoodItem();
+            GameManager.Instance.AddScore();
         }
     }
 

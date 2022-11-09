@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; //TextMeshPro
 
 public class GameManager : MonoBehaviour
 {
@@ -15,9 +17,12 @@ public class GameManager : MonoBehaviour
     public Collider foodSpawnArea;
     public GameObject[] foodItems;
 
-    private float timer = 0;
+    [SerializeField] private float timer = 0;
     private int score;
     private bool isGameRunning = false;
+
+    public TMP_Text scoreText;
+    public TMP_Text timerText;
 
     private void Awake()
     {
@@ -40,7 +45,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SetTimer();
     }
 
     public int getScore()
@@ -61,9 +66,37 @@ public class GameManager : MonoBehaviour
     public void AddScore()
     {
         score++;
+        scoreText.text = "SCORE: " + getScore().ToString();
     }
 
+    public void StartGame()
+    {
+        isGameRunning = true;
+        ResetScore();
+    }
 
+    public void ResetScore()
+    {
+        score = 0;
+    }
+
+    public void SetTimer()
+    {
+        if (timer > 0 && isGameRunning == true)
+        {
+            timer -= Time.deltaTime;
+            timerText.text = "TIMER: " + getTimer();
+        }
+        else
+        {
+            GameOver();
+        }
+    }
+
+    public void GameOver()
+    {
+        isGameRunning = false;
+    }
     public void SpawnFoodItem()
     {
         int randomValue = Random.Range(0, foodItems.Length);

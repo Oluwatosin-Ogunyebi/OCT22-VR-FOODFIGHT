@@ -28,7 +28,7 @@ public class Food : MonoBehaviour
         //    foodAudioSource.PlayOneShot(foodAudioClip);
         //    Destroy(this.gameObject, delay);
         //}
-        if (collision.gameObject.CompareTag("Target"))
+        if (collision.gameObject.CompareTag("Target") && GameManager.Instance.checkGame() == true)
         {
             foodAudioSource.PlayOneShot(foodAudioClip);
             Destroy(this.gameObject, delay);
